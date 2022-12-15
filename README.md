@@ -6,11 +6,17 @@ The Vue web framework does not require any template rendering during runtime in 
 
 Avoiding template engines in the web-service (template engines are performing runtime code generation), instead the Vue application and components represent a fixed code snapshot whose state transitions can be tested in the release-process. 
 
+<br/>
+
 ## Requirements
-* npm/nodes toolchain must be available
-* rust toolchain must be available
+
+* NPM/Node.js toolchain must be available
+* Rust toolchain must be available
+
+<br/>
 
 ## Features
+
 * Vue project code is located in folder `webui/`
 * The `cargo build` will trigger the vue npm build process ('npm_rs'), the resulting HTML code will be placed in `webui/dist/`
 * The vue JavaScript assets of `webui/dist/` will be embedded into the Rust code (`rust_embed`)
@@ -23,6 +29,7 @@ Avoiding template engines in the web-service (template engines are performing ru
 * The webui provides a button to send data to the webservice.
 * If files are modified in `src/` or `webui/src/` the command `cargo build` will update the binary (`build.rs`)
 
+<br/>
 
 ## Usage
 
@@ -52,6 +59,14 @@ Connect with web-browser to http://127.0.0.1:3000
 
 The Web-page will open in browser and will establish a websocket connection to ws://127.0.0.1:3000/ws. This websocket is used to send data updates between webui and web-service.
 
+### Release Build
+
+The stripped release binary target/release/rust-vue will occupy ca. 3MB, containing the web-service backend, and the webui frontend (HTML/CSS/JavaScript files). For building the release version, use:
+```
+RUSTFLAGS='-C link-arg=-s'  cargo build --release
+```
+
+<br/>
 
 ## Developing the Vue Web Frontend
 
@@ -69,6 +84,4 @@ npm run serve
 Connect with web-browser to `http://localhost:8080`
 
 Any time the files in folder `rust-vue-demo/webui/src/` are modified, the npm-build-process will be triggered and the browser will perform a reload.
-
-
 
